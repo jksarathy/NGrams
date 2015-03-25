@@ -1,0 +1,63 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf140
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 Jayshree Sarathy\
+jayshree.sarathy@yale.edu\
+\
+Questions:\
+\
+1) \
+Bigrams: \
+# S K S IY HH AA R AH K L AH N # : Doesn\'92t take into account that you can\'92t have SKS to start the word (because its a bigram)\
+# N D # : Doesn\'92t take into account that there should be a vowel in the word\
+# S T S IH K T UW N T # : Same as 1, bigram doesn\'92t account for starting with STS\
+# G R AY V UH K T IH K AH JH AH N D IH G IH SH AH N IY K S L AH N S AE K ER # : Doesn\'92t take into account the length of the word and the low probability of this long a word occuring\
+# D # : Doesn\'92t insert a vowel in the word\
+# N K T AH M # : N-K and K-T may often appear together as predicted by bigrams , but all together they would never appear at the beginning of a word\
+\
+Trigrams:\
+# # R AO D K AE N D ER L IY N EY T S # : The syllables of the word are plausible, which makes sense with a trigram, but the trigram doesn\'92t help build them into a smooth, natural word\
+# # S P EY N S IH L AH N TH R OW D # : The beginning and the endings of the word are well predicted by the trigram, but the composition of stress and syllables in the middle fails\
+# # M AE N CH AH L EY ER Z # : The trigram model again doesn\'92t take accenting and structure of entire words into account as well\
+# # AA L OW K EY P R OW D AH N Z # : Again, the syllables are plausible but the trigram is not fully capable of selecting complementary syllables to construct the entire word\
+# # L AO R T ER F IH K S T ER # : The last three fourths of this word is natural, but the trigram cannot be sure to connect the first portion of the word to the ending phonemes, for instance, in a plausible way\
+\
+2)\
+The trigram definitely produces words that are more natural and English-like, as seen by comparing the 5 most egregious words produced by both models. The trigram is more capable of producing English-like words because comparing with 2 past phonemes versus 1 past phoneme makes it so much better at placing phonemes in the correct part of the word and at, for instance, not linking 3 consonants together. The bigram was seen to do this, especially when the first two and last two were likely to go together but obviously not all three at once.\
+\
+3)\
+X.txt and smoothed bigrams: perplexity = 13.933330129\
+X.txt and smoothed trigrams: perplexity = 14.8485821196\
+Y.txt and smoothed bigrams: perplexity = 62.8896043095\
+Y.txt and smoothed trigrams: perplexity = 33.1759839404\
+\
+According to these results, X.txt is more English-like than Y.txt because of it has much lower perplexities for both the smoothed bigrams (13.9 vs 62.9) and smoothed trigrams (14.8 vs 33.2) models. A lower perplexity implies that the model is \'93less perplexed\'94 to see the data. For example, in the X.txt with smoothed bigrams, the perplexity means that the model is as confused about the data as if it were randomly choosing among 13.9 possibilities for each phoneme, rather than out of 62.8 phonemes for Y.txt with smoothed bigrams. This shows that X.txt is more English-like than Y.txt.\
+\
+4) Looking at the word probabilities for smoothed trigrams in X.txt and Y.txt, it seems that X.txt has mainly probabilities 10^-7 or larger with only a few on the order of 10^-8, while Y.txt mainly has probabilities 10^-8 or smaller, with only a few on the order of 10^-7. From this, a reasonable threshold would be probabilities on the order of 10^-8 (if smaller, words are not English-like)\
+\
+For smoothed bigrams, the threshold is different. X.txt seems to have most probabilities ranging from 10^-6 to 10^-9, while Y.txt has probabilities mainly in the 10^-10 to 10^-13 range. So, a reasonable threshold would be 10^-9 or 10^-10 (if smaller, words are not English-like)\
+\
+Both models provide a clear threshold, but the trigram model seems to better measure the English-ness of a word because the ranges of word probabilities are smaller (for example, Y.txt with trigrams are concentrated in 10^-8 and 10^-9 while with bigrams there is a larger spread of probabilities) and therefore more targeted to measuring the English-ness of the word.\
+\
+\
+Extra Credit:\
+In X.txt, the word M AE N AH N has a probability much higher than does the word M EY N AH M (0.000131972507694 vs. 2.44027691224e-06), and I would personally judge them to be pretty much the same in English-like-ness. Similarly, the word HH AE L AH N has a higher probability than two similar-sounding words HH AE L AH M and HH EY SH AH M (0.000109482968002 vs. 4.05177805263e-05 and 3.89031515178e-07).\
+The model might be showing these discrepancies because of the limitations of the test file and its arbitrary influence on some similar sounding words.\
+The limitations of n-grams to model phonotactics are that they must deal with a perpetual tradeoff between good-fit modeling of a certain corpus while allowing for variance of different corpuses.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
